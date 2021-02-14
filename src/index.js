@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom'
 
-const recipes = []
+let recipes = []
 
 const onFormSubmit = (e) => {
     e.preventDefault()
@@ -12,6 +12,11 @@ const onFormSubmit = (e) => {
         e.target.elements.recipes.value = ''
         renderRecipeApp()
     }
+}
+
+const onRemoveAll = () => {
+    recipes = []
+    renderRecipeApp()
 }
 
 const appRoot = document.getElementById('app')
@@ -30,6 +35,7 @@ const renderRecipeApp = () => {
                 <input type='text' name='recipes'/>
                 <button>Add Recipe</button>
             </form>
+            <button onClick={onRemoveAll}>Remove All</button>
         </div>
     );
 
