@@ -26,6 +26,7 @@ const renderRecipeApp = () => {
         <div>
             <h1>Recipe App</h1>
             <p>{recipes.length}</p>
+            <p>{recipes.length > 0 ? 'Here are your recipes:' : 'No recipes to show'}</p>
             <ol>
                 <li>Pizza</li>
                 <li>Lasanha</li>
