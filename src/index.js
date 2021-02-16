@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom'
 
-let recipes = []
+let recipes = ['pizza', 'lasanha', 'pasta']
 
 const onFormSubmit = (e) => {
     e.preventDefault()
@@ -28,9 +28,7 @@ const renderRecipeApp = () => {
             <p>{recipes.length}</p>
             <p>{recipes.length > 0 ? 'Here are your recipes:' : 'No recipes to show'}</p>
             <ol>
-                <li>Pizza</li>
-                <li>Lasanha</li>
-                <li>Pasta</li>
+                {recipes.map((recipe, i) => <li key={i}>{recipe}</li>)}
             </ol>
             <form onSubmit={onFormSubmit}>
                 <input type='text' name='recipes'/>
