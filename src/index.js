@@ -5,6 +5,7 @@ class RecipeApp extends React.Component {
     constructor(props) {
         super(props)
         this.handlAddRecipe = this.handlAddRecipe.bind(this)
+        this.handleDeleteRecipes = this.handleDeleteRecipes.bind(this)
         this.state = {
             recipes: ['one', 'two', 'three']
         }
@@ -22,12 +23,20 @@ class RecipeApp extends React.Component {
             }
         })
     }
+    handleDeleteRecipes() {
+        this.setState(() => {
+            return {
+                recipes: []
+            }
+        })
+    }
     render() {
         return (
             <div>
                 <Header />
                 <Recipes 
                     recipes={this.state.recipes} 
+                    handleDeleteRecipes={this.handleDeleteRecipes}
                 />
                 <AddRecipe
                     recipes={this.state.recipes}
@@ -51,7 +60,10 @@ class Recipes extends React.Component {
     render() {
         console.log(this.props.recipes)
         return (
-            this.props.recipes.map((recipe, i) => <Recipe key={i} recipe={recipe} />)
+            <div>
+                {this.props.recipes.map((recipe, i) => <Recipe key={i} recipe={recipe} />)}
+                <button onClick={this.props.handleDeleteRecipes}>Delete All Recipes</button>
+            </div>
         )
     }
 }
