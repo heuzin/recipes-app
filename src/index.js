@@ -4,16 +4,29 @@ import ReactDOM from 'react-dom'
 class RecipeApp extends React.Component {
     constructor(props) {
         super(props)
+        this.handlAddRecipe = this.handlAddRecipe.bind(this)
         this.state = {
             recipes: ['one', 'two', 'three']
         }
+    }
+    handlAddRecipe(recipe) {
+        // this.setState((prevState) => {
+        //     return {            
+        //         recipes: prevState.recipes.concat(recipe)
+        //     }
+        // })
+        console.log('handleadd')
     }
     render() {
         return (
             <div>
                 <Header />
-                <Recipes recipes={this.state.recipes} />
-                <AddRecipe />
+                <Recipes 
+                    recipes={this.state.recipes} 
+                />
+                <AddRecipe
+                    handlAddRecipe={this.handlAddRecipe}
+                />
             </div>
         )
     }
@@ -48,10 +61,21 @@ class Recipe extends React.Component {
 }
 
 class AddRecipe extends React.Component {
+    constructor(props) {
+        super(props)
+        this.handlAddRecipe = this.handlAddRecipe.bind(this)
+    }
+    handlAddRecipe(e) {
+        e.preventDefault()
+        this.props.handlAddRecipe()
+    }
     render() {
         return (
             <div>
-                <p>Add recipe here</p>
+                <form onSubmit={this.handlAddRecipe}>
+                    <input type='text' name='recipe'></input>
+                    <button>Add Recipe</button>
+                </form>
             </div>
         )
     }
