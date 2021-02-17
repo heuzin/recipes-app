@@ -10,6 +10,12 @@ class RecipeApp extends React.Component {
         }
     }
     handlAddRecipe(recipe) {
+        if (!recipe) {
+            return 'Please enter a recipe!'
+        } else if (this.state.recipes.indexOf(recipe) > -1) {
+            return 'Recipe already in the list!'
+        }
+
         this.setState((prevState) => {
             return {            
                 recipes: prevState.recipes.concat(recipe)
@@ -24,6 +30,7 @@ class RecipeApp extends React.Component {
                     recipes={this.state.recipes} 
                 />
                 <AddRecipe
+                    recipes={this.state.recipes}
                     handlAddRecipe={this.handlAddRecipe}
                 />
             </div>
@@ -62,19 +69,25 @@ class Recipe extends React.Component {
 class AddRecipe extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            error: undefined
+        }
         this.handlAddRecipe = this.handlAddRecipe.bind(this)
     }
     handlAddRecipe(e) {
         e.preventDefault()
 
-        console.log(e.target.elements.recipe.value)
-        const recipe = e.target.elements.recipe.value
+        const recipe = e.target.elements.recipe.value.trim()
+        const error = this.props.handlAddRecipe(recipe)
 
-        this.props.handlAddRecipe(recipe)
+        this.setState((prevState) => {
+            return { error }
+        }) 
     }
     render() {
         return (
             <div>
+                {this.state.error && <p>{this.state.error}</p>}
                 <form onSubmit={this.handlAddRecipe}>
                     <input type='text' name='recipe'></input>
                     <button>Add Recipe</button>
