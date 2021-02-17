@@ -10,12 +10,11 @@ class RecipeApp extends React.Component {
         }
     }
     handlAddRecipe(recipe) {
-        // this.setState((prevState) => {
-        //     return {            
-        //         recipes: prevState.recipes.concat(recipe)
-        //     }
-        // })
-        console.log('handleadd')
+        this.setState((prevState) => {
+            return {            
+                recipes: prevState.recipes.concat(recipe)
+            }
+        })
     }
     render() {
         return (
@@ -67,7 +66,11 @@ class AddRecipe extends React.Component {
     }
     handlAddRecipe(e) {
         e.preventDefault()
-        this.props.handlAddRecipe()
+
+        console.log(e.target.elements.recipe.value)
+        const recipe = e.target.elements.recipe.value
+
+        this.props.handlAddRecipe(recipe)
     }
     render() {
         return (
