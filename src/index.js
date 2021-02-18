@@ -47,36 +47,22 @@ class RecipeApp extends React.Component {
     }
 }
 
-class Header extends React.Component {
-    render() {
-        
-        return (
-            <h1>Recipes</h1>
-        )
-    }
-}
+const Header = () => (
+    <h1>Recipes</h1>
+)
 
-class Recipes extends React.Component {
-    render() {
-        console.log(this.props.recipes)
-        return (
-            <div>
-                {this.props.recipes.map((recipe, i) => <Recipe key={i} recipe={recipe} />)}
-                <button onClick={this.props.handleDeleteRecipes}>Delete All Recipes</button>
-            </div>
-        )
-    }
-}
+const Recipes = (props) => (
+    <div>
+        {props.recipes.map((recipe, i) => <Recipe key={i} recipe={recipe} />)}
+        <button onClick={props.handleDeleteRecipes}>Delete All Recipes</button>
+    </div>
+)
 
-class Recipe extends React.Component {
-    render() {
-        return (
-            <div>
-                <p>{this.props.recipe}</p>
-            </div>
-        )
-    }
-}
+const Recipe = (props) => (
+    <div>
+        <p>{props.recipe}</p>
+    </div>
+)
 
 class AddRecipe extends React.Component {
     constructor(props) {
