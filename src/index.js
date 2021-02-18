@@ -31,8 +31,10 @@ class RecipeApp extends React.Component {
             }
         })
     }
-    handleDeleteRecipe(option) {
-        console.log(option)
+    handleDeleteRecipe(recipeToDelete) {
+        this.setState((prevState) => ({
+            recipes: prevState.recipes.filter((recipe) => recipeToDelete !== recipe)
+        }))
     }
     render() {
         return (
