@@ -18,18 +18,14 @@ class RecipeApp extends React.Component {
             return 'Recipe already in the list!'
         }
 
-        this.setState((prevState) => {
-            return {            
-                recipes: prevState.recipes.concat(recipe)
-            }
-        })
+        this.setState((prevState) => ({
+            recipes: prevState.recipes.concat(recipe)
+        }))
     }
     handleDeleteRecipes() {
-        this.setState(() => {
-            return {
-                recipes: []
-            }
-        })
+        this.setState(() => ({
+            recipes: []
+        }))
     }
     handleDeleteRecipe(recipeToDelete) {
         this.setState((prevState) => ({
@@ -91,9 +87,10 @@ class AddRecipe extends React.Component {
         const recipe = e.target.elements.recipe.value.trim()
         const error = this.props.handlAddRecipe(recipe)
 
-        this.setState((prevState) => {
-            return { error }
-        }) 
+
+        this.setState(() => ({
+            error
+        }))
     }
     render() {
         return (
