@@ -8,7 +8,25 @@ class RecipeApp extends React.Component {
         this.handleDeleteRecipes = this.handleDeleteRecipes.bind(this)
         this.handleDeleteRecipe = this.handleDeleteRecipe.bind(this)
         this.state = {
-            recipes: ['one', 'two', 'three']
+            recipes: []
+        }
+    }
+    componentDidMount() {
+        try {
+            const json = localStorage.getItem('recipes')
+            const recipes = JSON.parse(json)
+            
+            if (recipes) {
+                this.setState(() => ({ recipes }))
+            }
+        } catch {
+            // Do nothing
+        }
+    }
+    componentDidUpdate(prevPros, prevState) {
+        if (prevState.recipes.length !== this.state.recipes.length) {
+            const json = JSON.stringify(this.state.recipes)
+            localStorage.setItem('recipes', json)
         }
     }
     handlAddRecipe(recipe) {
