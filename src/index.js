@@ -1,7 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import AddRecipe from './components/AddRecipe'
-import Recipe from './components/Recipe'
+import Recipes from './components/Recipes'
+import Header from './components/Header'
 
 class RecipeApp extends React.Component {
     state = {
@@ -63,16 +64,5 @@ class RecipeApp extends React.Component {
         )
     }
 }
-
-const Header = () => (
-    <h1>Recipes</h1>
-)
-
-const Recipes = (props) => (
-    <div>
-        {props.recipes.map((recipe, i) => <Recipe handleDeleteRecipe={props.handleDeleteRecipe} key={i} recipe={recipe} />)}
-        <button onClick={props.handleDeleteRecipes}>Delete All Recipes</button>
-    </div>
-)
 
 ReactDOM.render(<RecipeApp />, document.getElementById('app'))
