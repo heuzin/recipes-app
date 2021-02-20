@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import AddRecipe from './components/AddRecipe'
+import Recipe from './components/Recipe'
 
 class RecipeApp extends React.Component {
     state = {
@@ -71,18 +72,6 @@ const Recipes = (props) => (
     <div>
         {props.recipes.map((recipe, i) => <Recipe handleDeleteRecipe={props.handleDeleteRecipe} key={i} recipe={recipe} />)}
         <button onClick={props.handleDeleteRecipes}>Delete All Recipes</button>
-    </div>
-)
-
-const Recipe = (props) => (
-    <div>
-        <p>{props.recipe}</p>
-        <button 
-            onClick={(() => {
-                props.handleDeleteRecipe(props.recipe)
-            })}
-        >Delete
-        </button>  
     </div>
 )
 
