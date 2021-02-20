@@ -2,14 +2,29 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 class RecipeApp extends React.Component {
-    constructor(props) {
-        super(props)
-        this.handlAddRecipe = this.handlAddRecipe.bind(this)
-        this.handleDeleteRecipes = this.handleDeleteRecipes.bind(this)
-        this.handleDeleteRecipe = this.handleDeleteRecipe.bind(this)
-        this.state = {
-            recipes: []
+    state = {
+        recipes: []
+    }
+    handlAddRecipe = (recipe) => {
+        if (!recipe) {
+            return 'Please enter a recipe!'
+        } else if (this.state.recipes.indexOf(recipe) > -1) {
+            return 'Recipe already in the list!'
         }
+
+        this.setState((prevState) => ({
+            recipes: prevState.recipes.concat(recipe)
+        }))
+    }
+    handleDeleteRecipes = () => {
+        this.setState(() => ({
+            recipes: []
+        }))
+    }
+    handleDeleteRecipe = (recipeToDelete) => {
+        this.setState((prevState) => ({
+            recipes: prevState.recipes.filter((recipe) => recipeToDelete !== recipe)
+        }))
     }
     componentDidMount() {
         try {
@@ -28,27 +43,6 @@ class RecipeApp extends React.Component {
             const json = JSON.stringify(this.state.recipes)
             localStorage.setItem('recipes', json)
         }
-    }
-    handlAddRecipe(recipe) {
-        if (!recipe) {
-            return 'Please enter a recipe!'
-        } else if (this.state.recipes.indexOf(recipe) > -1) {
-            return 'Recipe already in the list!'
-        }
-
-        this.setState((prevState) => ({
-            recipes: prevState.recipes.concat(recipe)
-        }))
-    }
-    handleDeleteRecipes() {
-        this.setState(() => ({
-            recipes: []
-        }))
-    }
-    handleDeleteRecipe(recipeToDelete) {
-        this.setState((prevState) => ({
-            recipes: prevState.recipes.filter((recipe) => recipeToDelete !== recipe)
-        }))
     }
     render() {
         return (
@@ -92,14 +86,10 @@ const Recipe = (props) => (
 )
 
 class AddRecipe extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            error: undefined
-        }
-        this.handlAddRecipe = this.handlAddRecipe.bind(this)
+    state = {
+        error: undefined
     }
-    handlAddRecipe(e) {
+    handlAddRecipe = (e) => {
         e.preventDefault()
 
         const recipe = e.target.elements.recipe.value.trim()
@@ -109,6 +99,10 @@ class AddRecipe extends React.Component {
         this.setState(() => ({
             error
         }))
+
+        if (!error) {
+            e.target.elements.recipe.value = ''
+        }
     }
     render() {
         return (
